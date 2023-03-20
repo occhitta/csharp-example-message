@@ -1,0 +1,51 @@
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:m="clr-namespace:Occhitta.Example.Message.ViewModel">
+  <DataTemplate DataType="{x:Type m:WindowViewModel}">
+    <Grid>
+      <Grid.ColumnDefinitions>
+        <ColumnDefinition Width="1*" />
+        <ColumnDefinition Width="05" />
+        <ColumnDefinition Width="1*" />
+      </Grid.ColumnDefinitions>
+      <Grid Grid.Column="0">
+        <Grid.RowDefinitions>
+          <RowDefinition Height="Auto" />
+          <RowDefinition Height="100*" />
+        </Grid.RowDefinitions>
+        <Button Content="更新"
+                Command="{Binding Path=UpdateMenu}"
+                Grid.Row="0" />
+        <DataGrid ItemsSource="{Binding Path=SelectList}"
+                  SelectedIndex="{Binding Path=SelectCode}"
+                  AutoGenerateColumns="False"
+                  IsReadOnly="True"
+                  Grid.Row="1">
+          <DataGrid.RowStyle>
+            <Style TargetType="{x:Type DataGridRow}">
+              <Setter Property="Background" Value="#FFFFFF" />
+              <Style.Triggers>
+                <DataTrigger Binding="{Binding Path=UpdateFlag}" Value="False">
+                  <Setter Property="Background" Value="#808080" />
+                </DataTrigger>
+              </Style.Triggers>
+            </Style>
+          </DataGrid.RowStyle>
+          <DataGrid.Columns>
+            <DataGridTextColumn Header="実行情報" Binding="{Binding Path=ThreadName}" Width="100" />
+            <DataGridTextColumn Header="タイトル" Binding="{Binding Path=WindowName}" Width="10*" />
+          </DataGrid.Columns>
+        </DataGrid>
+      </Grid>
+      <GridSplitter ResizeBehavior="PreviousAndNext"
+                    ResizeDirection="Columns"
+                    ShowsPreview="True"
+                    HorizontalAlignment="Stretch"
+                    VerticalAlignment="Stretch"
+                    Grid.Column="1" />
+      <ContentControl Content="{Binding Path=SelectData, TargetNullValue={x:Static Member=m:InvokeViewModel.FormatData}}"
+                      Focusable="False"
+                      Grid.Column="2" />
+    </Grid>
+  </DataTemplate>
+</ResourceDictionary>
