@@ -8,3 +8,4 @@ obj/
 
 # 個人設定関連
 /.vscode/
+*.user
